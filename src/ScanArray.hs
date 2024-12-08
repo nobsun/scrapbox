@@ -2,7 +2,6 @@
 
 {-# LANGUAGE GHC2021 #-}
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE NPlusKPatterns #-}
 
 module ScanArray
     ( scanArray
