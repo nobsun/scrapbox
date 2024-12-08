@@ -8,8 +8,8 @@ module ScanArray
     ( scanArray
     ) where
 
-import Control.Arrow
-import Data.Array
+import Control.Arrow ( Arrow(second, first) )
+import Data.Array ( Ix(range), (!), assocs, bounds, listArray, Array )
 
 scanArray :: (Ix i, Enum i)
           => (a -> b)
