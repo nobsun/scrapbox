@@ -1,0 +1,22 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "scrapbox:lib"
+
+    - path: "./app/scanarray/Main.hs"
+      component: "scrapbox:exe:scanarray"
+
+    - path: "./app/scanarray/Paths_scrapbox.hs"
+      component: "scrapbox:exe:scanarray"
+
+    - path: "./app/Main.hs"
+      component: "scrapbox:exe:scrapbox"
+
+    - path: "./app/Paths_scrapbox.hs"
+      component: "scrapbox:exe:scrapbox"
+
+    - path: "./test"
+      component: "scrapbox:test:scrapbox-doctest"
+
+    - path: "./test"
+      component: "scrapbox:test:scrapbox-test"
