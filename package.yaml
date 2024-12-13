@@ -38,6 +38,9 @@ dependencies:
 - directory
 - filepath
 - split
+- random
+- list-shuffle
+- extra
 
 language: GHC2021
 
@@ -66,6 +69,30 @@ library:
   source-dirs: src
 
 executables:
+  minpath:
+    main:               Main.hs
+    source-dirs:        app/minpath
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
+  scanlist:
+    main:               Main.hs
+    source-dirs:        app/scanlist
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
+  shuffling:
+    main:               Main.hs
+    source-dirs:        app/shuffling
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
   scanarray:
     main:               Main.hs
     source-dirs:        app/scanarray
