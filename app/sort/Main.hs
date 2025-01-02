@@ -33,25 +33,21 @@ import Debug.Trace qualified as Debug
 debug :: Bool
 debug = () /= ()
 
-type I = Int
-type O = Int
+type I = Char
+type O = Char
 
-type Dom   = ()
-type Codom = ()
+type Dom   = [String]
+type Codom = [String]
 type Solver = Dom -> Codom
 
 solve :: Solver
-solve = \ case
-    () -> ()
+solve = sort
 
 toDom :: [[I]] -> Dom
-toDom = \ case
-    _:_ -> ()
-    _   -> invalid
+toDom = id
 
 fromCodom :: Codom -> [[O]]
-fromCodom = \ case
-    _rr -> undefined 
+fromCodom = id
 
 wrap :: Solver -> ([[I]] -> [[O]])
 wrap f = fromCodom . f . toDom

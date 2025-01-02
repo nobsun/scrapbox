@@ -69,6 +69,22 @@ library:
   source-dirs: src
 
 executables:
+  uniq:
+    main:               Main.hs
+    source-dirs:        app/uniq
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
+  sort:
+    main:               Main.hs
+    source-dirs:        app/sort
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
   minpath:
     main:               Main.hs
     source-dirs:        app/minpath
