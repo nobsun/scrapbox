@@ -44,3 +44,9 @@ seq1to10 = const (map (show @Int) [1..10])
 cutc1toc20 :: UnixCmd
 cutc1toc20 = map (take 20)
 
+interactWithEnv :: ((ProgName, Args, Envs) -> (String -> String)) -> IO ()
+interactWithEnv = undefined
+
+type ProgName = String
+type Args     = [String]
+type Envs     = [(String, String)]
