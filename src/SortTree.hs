@@ -1,3 +1,8 @@
+-- # SortTree
+-- このファイルは`stack new`コマンドで自動的に`src/`に挿入されます
+-- 
+-- ## 言語拡張と`module`宣言
+-- 最低限の指定をしてある
 {-# LANGUAGE GHC2021 #-}
 {-# LANGUAGE ImplicitParams #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -7,49 +12,57 @@
 {-# LANGUAGE DataKinds, PolyKinds, NoStarIsType, TypeFamilyDependencies #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE OverloadedRecordDot, NoFieldSelectors, DuplicateRecordFields #-}
-module SortTree where
+module SortTree
+     where
 
 import Control.Arrow
-import Data.Function
+import Control.Comonad.Cofree
+import Control.Comonad.Trans.Cofree as CoF (CofreeF (..))
+import Data.Char
+import Data.Functor.Base
+import Data.Functor.Foldable
 import Data.List
-import Data.List.Extra
-import Data.Maybe
 import Data.Ord
 import Data.Tree
-import Data.Tuple
 
 type Cand = [Int]
 type Comp = (Int,Int)
 
 initCands :: Int -> [Cand]
-initCands n = permutations $ take n $ [0 ..]
+initCands n = permutations $ take n [0 ..]
 
 initComps :: Int -> [Comp]
-initComps n = map toTuple $ combinations 2 $ take n $ [0 ..]
+initComps n = map toTuple $ combinations 2 $ take n [0 ..]
 
-{- --
-genTree :: (Comp,[Comp],[Cand]) -> Tree (Comp,[Comp],[Cand])
-genTree r@(_,cs,css) = Node r subs where
-    subs | length css < 2 = []
-         | otherwise = case selectComp css cs of
-            (cmp,(lcss,rcss)) -> [genTree (cmp,delete cmp cs,lcss)
-                                 ,genTree (swap cmp,delete cmp cs,rcss)]
--- -}
-{- |
->>> selectComp (initCands 5) (initComps 5)
-((0,1),([[0,1,2,3,4],[2,0,1,3,4],[0,2,1,3,4],[3,0,1,2,4],[0,3,1,2,4],[0,1,3,2,4],[3,0,2,1,4],[0,3,2,1,4],[0,2,3,1,4],[3,2,0,1,4],[2,3,0,1,4],[2,0,3,1,4],[4,0,1,2,3],[0,4,1,2,3],[0,1,4,2,3],[0,1,2,4,3],[4,0,2,1,3],[0,4,2,1,3],[0,2,4,1,3],[0,2,1,4,3],[4,2,0,1,3],[2,4,0,1,3],[2,0,4,1,3],[2,0,1,4,3],[4,0,3,2,1],[0,4,3,2,1],[0,3,4,2,1],[0,3,2,4,1],[4,3,0,2,1],[3,4,0,2,1],[3,0,4,2,1],[3,0,2,4,1],[4,3,2,0,1],[3,4,2,0,1],[3,2,4,0,1],[3,2,0,4,1],[4,0,2,3,1],[0,4,2,3,1],[0,2,4,3,1],[0,2,3,4,1],[4,2,0,3,1],[2,4,0,3,1],[2,0,4,3,1],[2,0,3,4,1],[4,2,3,0,1],[2,4,3,0,1],[2,3,4,0,1],[2,3,0,4,1],[4,0,3,1,2],[0,4,3,1,2],[0,3,4,1,2],[0,3,1,4,2],[4,3,0,1,2],[3,4,0,1,2],[3,0,4,1,2],[3,0,1,4,2],[4,0,1,3,2],[0,4,1,3,2],[0,1,4,3,2],[0,1,3,4,2]],[[1,0,2,3,4],[2,1,0,3,4],[1,2,0,3,4],[3,2,1,0,4],[2,3,1,0,4],[2,1,3,0,4],[3,1,2,0,4],[1,3,2,0,4],[1,2,3,0,4],[3,1,0,2,4],[1,3,0,2,4],[1,0,3,2,4],[4,3,2,1,0],[3,4,2,1,0],[3,2,4,1,0],[3,2,1,4,0],[4,2,3,1,0],[2,4,3,1,0],[2,3,4,1,0],[2,3,1,4,0],[4,1,2,3,0],[1,4,2,3,0],[1,2,4,3,0],[1,2,3,4,0],[4,2,1,3,0],[2,4,1,3,0],[2,1,4,3,0],[2,1,3,4,0],[4,1,3,2,0],[1,4,3,2,0],[1,3,4,2,0],[1,3,2,4,0],[4,3,1,2,0],[3,4,1,2,0],[3,1,4,2,0],[3,1,2,4,0],[4,1,0,2,3],[1,4,0,2,3],[1,0,4,2,3],[1,0,2,4,3],[4,1,2,0,3],[1,4,2,0,3],[1,2,4,0,3],[1,2,0,4,3],[4,2,1,0,3],[2,4,1,0,3],[2,1,4,0,3],[2,1,0,4,3],[4,3,1,0,2],[3,4,1,0,2],[3,1,4,0,2],[3,1,0,4,2],[4,1,0,3,2],[1,4,0,3,2],[1,0,4,3,2],[1,0,3,4,2],[4,1,3,0,2],[1,4,3,0,2],[1,3,4,0,2],[1,3,0,4,2]]))
--}
-selectComp :: [Cand] -> [Comp] -> (Comp,([Cand],[Cand]))
+type SortTree a = Cofree (TreeF a)
+
+genSortTree :: ([Cand],[Comp]) -> SortTree ([Cand], [Comp]) String
+genSortTree = ana psi
+    where
+        psi = \ case
+            (cnds,cmps) -> case cnds of
+                [ans] -> ("! " ++ (showName =<< ans)) CoF.:< NodeF (cnds,cmps) []
+                _     ->
+                    case selectComp (cnds,cmps) of 
+                    (c,(ls,rs)) -> query c CoF.:< NodeF (cnds,cmps) [(ls,cmps'), (rs,cmps')]
+                        where
+                            cmps' = delete c cmps
+
+query :: Comp -> String
+query (x,y) = unwords ["?",showName x, showName y]
+
+showName :: Int -> String
+showName i = singleton $ chr $ ord 'A' + i
+
+selectComp :: ([Cand],[Comp]) -> (Comp,([Cand],[Cand]))
 selectComp = \ case
-    []  -> const $ error "selectComp: empty candidates"
-    cds -> \ case
-        []  -> error "selectComp: empty comparing pairs"
-        cps -> minimumBy (comparing (uncurry max . (length *** length) . snd)) (map ((,) <*> flip prune cds) cps)
+    ([],_)      -> error "selectComp: empty candidates"
+    (_,[])      -> error "selectComp: empty comparing pairs"
+    (cnds,cmps) -> minimumBy (comparing phi)
+                 $ map ((,) <*> flip prune cnds) cmps
+        where
+            phi = uncurry max . (length *** length) . snd
 
-{- |
->>> prune (0,1) (initCands 4)
-([[0,1,2,3],[2,0,1,3],[0,2,1,3],[3,0,1,2],[0,3,1,2],[0,1,3,2],[3,0,2,1],[0,3,2,1],[0,2,3,1],[3,2,0,1],[2,3,0,1],[2,0,3,1]],[[1,0,2,3],[2,1,0,3],[1,2,0,3],[3,2,1,0],[2,3,1,0],[2,1,3,0],[3,1,2,0],[1,3,2,0],[1,2,3,0],[3,1,0,2],[1,3,0,2],[1,0,3,2]])
--}
 prune :: Comp -> [Cand] -> ([Cand],[Cand])
 prune (m,n) = partition phi where
     phi c = elemIndices m c < elemIndices n c
@@ -57,15 +70,15 @@ prune (m,n) = partition phi where
 combinations :: Int -> [a] -> [[a]]
 combinations = \ case
     0   -> const [[]]
-    n+1 -> \ case 
+    n+1 -> \ case
         []   -> []
         x:xs -> map (x:) (combinations n xs) ++ combinations (n+1) xs
-    _ -> error "negative"
+    _   -> error "negative"
 
 toTuple :: [a] -> (a,a)
 toTuple = \ case
     x:y:_ -> (x,y)
-    _     -> error "toTuple: too short"
+    _     -> error "too few elems"
 
-
-
+theTree :: SortTree ([Cand], [Comp]) String
+theTree = genSortTree (initCands 5, initComps 5)
