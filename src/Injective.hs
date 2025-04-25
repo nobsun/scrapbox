@@ -1,3 +1,6 @@
+-- # Injective
+-- 
+-- ## 言語拡張と`module`宣言
 {-# LANGUAGE GHC2021 #-}
 {-# LANGUAGE ImplicitParams #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -7,9 +10,16 @@
 {-# LANGUAGE DataKinds, PolyKinds, NoStarIsType, TypeFamilyDependencies #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE OverloadedRecordDot, NoFieldSelectors, DuplicateRecordFields #-}
-module Main where
+module Injective
+    ( someFunc
+    ) where
 
-import Test.DocTest
 
-main :: IO ()
-main = doctest ["src/Prune.hs"]
+-- ## `doctest`のための記述と定義本体
+{- | 
+「なんか関数」を標準出力に印字する
+>>> someFunc
+なんか関数
+-}
+someFunc :: IO ()
+someFunc = putStrLn "なんか関数"

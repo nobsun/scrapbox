@@ -69,6 +69,30 @@ library:
   source-dirs: src
 
 executables:
+  prune:
+    main:               Main.hs
+    source-dirs:        app/prune
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
+  gfizzbuzz:
+    main:               Main.hs
+    source-dirs:        app/gfizzbuzz
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
+  reexport:
+    main:               Main.hs
+    source-dirs:        app/reexport
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
   uniq:
     main:               Main.hs
     source-dirs:        app/uniq

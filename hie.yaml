@@ -3,11 +3,29 @@ cradle:
     - path: "src"
       component: "lib:scrapbox"
 
+    - path: "app/gfizzbuzz/Main.hs"
+      component: "scrapbox:exe:gfizzbuzz"
+
+    - path: "app/gfizzbuzz/Paths_scrapbox.hs"
+      component: "scrapbox:exe:gfizzbuzz"
+
     - path: "app/minpath/Main.hs"
       component: "scrapbox:exe:minpath"
 
     - path: "app/minpath/Paths_scrapbox.hs"
       component: "scrapbox:exe:minpath"
+
+    - path: "app/prune/Main.hs"
+      component: "scrapbox:exe:prune"
+
+    - path: "app/prune/Paths_scrapbox.hs"
+      component: "scrapbox:exe:prune"
+
+    - path: "app/reexport/Main.hs"
+      component: "scrapbox:exe:reexport"
+
+    - path: "app/reexport/Paths_scrapbox.hs"
+      component: "scrapbox:exe:reexport"
 
     - path: "app/scanarray/Main.hs"
       component: "scrapbox:exe:scanarray"

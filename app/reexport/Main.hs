@@ -9,7 +9,15 @@
 {-# LANGUAGE OverloadedRecordDot, NoFieldSelectors, DuplicateRecordFields #-}
 module Main where
 
-import Test.DocTest
+import Hoge
 
 main :: IO ()
-main = doctest ["src/Prune.hs"]
+main = print $ expr
+
+expr :: E Hs
+expr = e2 e1 (e2 e1 e1)
+
+{- --
+e_bad :: E Hs
+e_bad = E [K,K]
+-- -}
