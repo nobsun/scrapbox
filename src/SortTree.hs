@@ -1,8 +1,7 @@
 -- # SortTree
--- このファイルは`stack new`コマンドで自動的に`src/`に挿入されます
--- 
 -- ## 言語拡張と`module`宣言
--- 最低限の指定をしてある
+-- 
+
 {-# LANGUAGE GHC2021 #-}
 {-# LANGUAGE ImplicitParams #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -44,9 +43,9 @@ genSortTree = ana psi
                 [ans] -> ("! " ++ (showName =<< ans)) CoF.:< NodeF (cnds,cmps) []
                 _     ->
                     case selectComp (cnds,cmps) of 
-                    (c,(ls,rs)) -> query c CoF.:< NodeF (cnds,cmps) [(ls,cmps'), (rs,cmps')]
-                        where
-                            cmps' = delete c cmps
+                        (c,(ls,rs)) -> query c CoF.:< NodeF (cnds,cmps) [(ls,cmps'), (rs,cmps')]
+                            where
+                                cmps' = delete c cmps
 
 query :: Comp -> String
 query (x,y) = unwords ["?",showName x, showName y]

@@ -11,7 +11,7 @@ import Text.Printf
 import Shuffled
 
 main :: IO ()
-main = print . minPath0 (gen 100) . read . head =<< getArgs
+main = print . minPath0 (gen 100) . read . (!! 0) =<< getArgs
 
 minPath0 :: Array (Int,Int) Int -> (Int,Int) -> Int
 minPath0 sa (1,1) = sa ! (1,1)

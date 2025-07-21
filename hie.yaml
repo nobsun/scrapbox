@@ -3,11 +3,23 @@ cradle:
     - path: "src"
       component: "lib:scrapbox"
 
+    - path: "app/2025-07-08-todays-code/Main.hs"
+      component: "scrapbox:exe:2025-07-08-todays-code"
+
+    - path: "app/2025-07-08-todays-code/Paths_scrapbox.hs"
+      component: "scrapbox:exe:2025-07-08-todays-code"
+
     - path: "app/gfizzbuzz/Main.hs"
       component: "scrapbox:exe:gfizzbuzz"
 
     - path: "app/gfizzbuzz/Paths_scrapbox.hs"
       component: "scrapbox:exe:gfizzbuzz"
+
+    - path: "app/interactive-sort/Main.hs"
+      component: "scrapbox:exe:interactive-sort"
+
+    - path: "app/interactive-sort/Paths_scrapbox.hs"
+      component: "scrapbox:exe:interactive-sort"
 
     - path: "app/minpath/Main.hs"
       component: "scrapbox:exe:minpath"
@@ -50,12 +62,6 @@ cradle:
 
     - path: "app/shuffling/Paths_scrapbox.hs"
       component: "scrapbox:exe:shuffling"
-
-    - path: "app/sort/Main.hs"
-      component: "scrapbox:exe:sort"
-
-    - path: "app/sort/Paths_scrapbox.hs"
-      component: "scrapbox:exe:sort"
 
     - path: "app/uniq/Main.hs"
       component: "scrapbox:exe:uniq"

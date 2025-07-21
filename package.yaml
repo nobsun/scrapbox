@@ -101,14 +101,6 @@ executables:
     dependencies:
     - scrapbox
 
-  sort:
-    main:               Main.hs
-    source-dirs:        app/sort
-    ghc-options:
-    - -rtsopts
-    dependencies:
-    - scrapbox
-
   minpath:
     main:               Main.hs
     source-dirs:        app/minpath
