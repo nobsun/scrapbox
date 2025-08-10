@@ -1,76 +1,64 @@
 cradle:
-  cabal:
-    - path: "src"
-      component: "lib:scrapbox"
+  stack:
+    - path: "./src"
+      component: "scrapbox:lib"
 
-    - path: "app/2025-07-08-todays-code/Main.hs"
-      component: "scrapbox:exe:2025-07-08-todays-code"
-
-    - path: "app/2025-07-08-todays-code/Paths_scrapbox.hs"
-      component: "scrapbox:exe:2025-07-08-todays-code"
-
-    - path: "app/gfizzbuzz/Main.hs"
+    - path: "./app/gfizzbuzz/Main.hs"
       component: "scrapbox:exe:gfizzbuzz"
 
-    - path: "app/gfizzbuzz/Paths_scrapbox.hs"
+    - path: "./app/gfizzbuzz/Paths_scrapbox.hs"
       component: "scrapbox:exe:gfizzbuzz"
 
-    - path: "app/interactive-sort/Main.hs"
-      component: "scrapbox:exe:interactive-sort"
-
-    - path: "app/interactive-sort/Paths_scrapbox.hs"
-      component: "scrapbox:exe:interactive-sort"
-
-    - path: "app/minpath/Main.hs"
+    - path: "./app/minpath/Main.hs"
       component: "scrapbox:exe:minpath"
 
-    - path: "app/minpath/Paths_scrapbox.hs"
+    - path: "./app/minpath/Paths_scrapbox.hs"
       component: "scrapbox:exe:minpath"
 
-    - path: "app/prune/Main.hs"
+    - path: "./app/prune/Main.hs"
       component: "scrapbox:exe:prune"
 
-    - path: "app/prune/Paths_scrapbox.hs"
+    - path: "./app/prune/Paths_scrapbox.hs"
       component: "scrapbox:exe:prune"
 
-    - path: "app/reexport/Main.hs"
+    - path: "./app/reexport/Main.hs"
       component: "scrapbox:exe:reexport"
 
-    - path: "app/reexport/Paths_scrapbox.hs"
+    - path: "./app/reexport/Paths_scrapbox.hs"
       component: "scrapbox:exe:reexport"
 
-    - path: "app/scanarray/Main.hs"
+    - path: "./app/scanarray/Main.hs"
       component: "scrapbox:exe:scanarray"
 
-    - path: "app/scanarray/Paths_scrapbox.hs"
+    - path: "./app/scanarray/Paths_scrapbox.hs"
       component: "scrapbox:exe:scanarray"
 
-    - path: "app/scanlist/Main.hs"
+    - path: "./app/scanlist/Main.hs"
       component: "scrapbox:exe:scanlist"
 
-    - path: "app/scanlist/Paths_scrapbox.hs"
+    - path: "./app/scanlist/Paths_scrapbox.hs"
       component: "scrapbox:exe:scanlist"
 
-    - path: "app/Main.hs"
+    - path: "./app/Main.hs"
       component: "scrapbox:exe:scrapbox"
 
-    - path: "app/Paths_scrapbox.hs"
+    - path: "./app/Paths_scrapbox.hs"
       component: "scrapbox:exe:scrapbox"
 
-    - path: "app/shuffling/Main.hs"
+    - path: "./app/shuffling/Main.hs"
       component: "scrapbox:exe:shuffling"
 
-    - path: "app/shuffling/Paths_scrapbox.hs"
+    - path: "./app/shuffling/Paths_scrapbox.hs"
       component: "scrapbox:exe:shuffling"
 
-    - path: "app/uniq/Main.hs"
+    - path: "./app/uniq/Main.hs"
       component: "scrapbox:exe:uniq"
 
-    - path: "app/uniq/Paths_scrapbox.hs"
+    - path: "./app/uniq/Paths_scrapbox.hs"
       component: "scrapbox:exe:uniq"
 
-    - path: "test"
+    - path: "./test"
       component: "scrapbox:test:scrapbox-doctest"
 
-    - path: "test"
+    - path: "./test"
       component: "scrapbox:test:scrapbox-test"
