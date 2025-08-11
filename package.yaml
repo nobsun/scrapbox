@@ -69,6 +69,14 @@ library:
   source-dirs: src
 
 executables:
+  perms:
+    main:               Main.hs
+    source-dirs:        app/perms
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - scrapbox
+
   prune:
     main:               Main.hs
     source-dirs:        app/prune

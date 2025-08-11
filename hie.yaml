@@ -15,6 +15,12 @@ cradle:
     - path: "./app/minpath/Paths_scrapbox.hs"
       component: "scrapbox:exe:minpath"
 
+    - path: "./app/perms/Main.hs"
+      component: "scrapbox:exe:perms"
+
+    - path: "./app/perms/Paths_scrapbox.hs"
+      component: "scrapbox:exe:perms"
+
     - path: "./app/prune/Main.hs"
       component: "scrapbox:exe:prune"
 
