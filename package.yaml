@@ -64,6 +64,7 @@ ghc-options:
 - -Wno-unused-imports
 - -Wno-unused-top-binds
 - -Wno-orphans
+- -Wno-x-partial
 
 library:
   source-dirs: src

@@ -56,6 +56,13 @@ rleSplitAt = \ case
         _               -> ([],[])
     _   -> ([],)
 
+transposeRLE :: RLE Int -> RLE Int
+transposeRLE rle = iter len rle where
+    len    = sum (snd <$> rle)
+    iter n = \ case
+        []         -> []
+        (a,m) : rs -> (n,a) : iter (n - m) (map (first (subtract a)) rs)
+
 {- ^
 >>> import Control.Arrow
 >>> let xs = "aaabcc"
